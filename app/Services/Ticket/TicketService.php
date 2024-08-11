@@ -4,8 +4,7 @@ namespace App\Services\Ticket;
 
 use App\Models\Ticket;
 use App\Models\User;
-use App\Repositories\User\Ticket\TicketRepository;
-use Illuminate\Support\Collection;
+use App\Repositories\Ticket\TicketRepository;
 use Illuminate\Support\Facades\DB;
 
 class TicketService
@@ -29,10 +28,10 @@ class TicketService
      * Create a new ticket.
      *
      * @param array $data
-     * @param int $creatorId
-     * @return Ticket
+     * @param string $creatorId - UUID string value
+     * @return Ticket 
      */
-    public function createTicket(array $data, int $creatorId): Ticket
+    public function createTicket(array $data, string $creatorId): Ticket
     {
         $data['creator_id'] = $creatorId;
         return $this->ticketRepository->create($data);

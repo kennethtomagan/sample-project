@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\User\Ticket;
+namespace App\Repositories\Ticket;
 
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,7 +21,7 @@ class TicketRepository
     /**
      * Get a ticket by its ID with relationships.
      *
-     * @param string $ticketId
+     * @param string $ticketId - UUID string value
      * @return Ticket|null
      */
     public function findWithRelations(string $ticketId): ?Ticket
@@ -68,12 +68,12 @@ class TicketRepository
     /**
      * Decrement ranks for tickets within a specified range.
      *
-     * @param int $boardId
+     * @param string $boardId - UUID string value
      * @param int $startRank
      * @param int $endRank
      * @return void
      */
-    public function decrementRanks(int $boardId, int $startRank, int $endRank): void
+    public function decrementRanks(string $boardId, int $startRank, int $endRank): void
     {
         Ticket::where('board_id', $boardId)
             ->whereBetween('rank', [$startRank, $endRank])
@@ -83,12 +83,12 @@ class TicketRepository
     /**
      * Increment ranks for tickets within a specified range.
      *
-     * @param int $boardId
+     * @param string $boardId - UUID string value
      * @param int $startRank
      * @param int $endRank
      * @return void
      */
-    public function incrementRanks(int $boardId, int $startRank, int $endRank): void
+    public function incrementRanks(string $boardId, int $startRank, int $endRank): void
     {
         Ticket::where('board_id', $boardId)
             ->whereBetween('rank', [$startRank, $endRank])
@@ -99,11 +99,11 @@ class TicketRepository
      * Update ticket's board and rank.
      *
      * @param Ticket $ticket
-     * @param int|null $boardId
+     * @param string|null boardId - UUID string value
      * @param int $rank
      * @return Ticket
      */
-    public function updateBoardAndRank(Ticket $ticket, ?int $boardId, int $rank): Ticket
+    public function updateBoardAndRank(Ticket $ticket, ?string $boardId, int $rank): Ticket
     {
         $ticket->board_id = $boardId ?? $ticket->board_id;
         $ticket->rank = $rank;

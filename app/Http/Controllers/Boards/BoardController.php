@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Board\BoardCreateRequest;
 use App\Http\Resources\Board\BoardResource;
 use App\Models\Board;
-use App\Services\Ticket\Board\BoardService;
+use App\Services\Board\BoardService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

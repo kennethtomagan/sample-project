@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\User\Ticket\Project\Board;
+namespace App\Repositories\Board;
 
 use App\Models\Board;
 

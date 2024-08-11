@@ -44,7 +44,7 @@ class TicketController extends Controller
     /**
      * Show a ticket.
      *
-     * @param string $ticketId
+     * @param string $ticketId - UUID string value
      * @return TicketResource
      */
     public function show(string $ticketId): TicketResource

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Ticket\Project;
+namespace App\Services\Project;
 
 use App\Models\Project;
-use App\Repositories\User\Ticket\Project\ProjectRepository;
+use App\Repositories\Project\ProjectRepository;
 use Illuminate\Database\Eloquent\Collection;
 
 class ProjectService
@@ -26,10 +26,10 @@ class ProjectService
     /**
      * Get all projects for a user.
      *
-     * @param int $userId
+     * @param string $userId - UUID string value
      * @return Collection
      */
-    public function getUserProjects(int $userId): Collection
+    public function getUserProjects(string $userId): Collection
     {
         return $this->projectRepository->getUserProjects($userId);
     }
@@ -37,11 +37,11 @@ class ProjectService
     /**
      * Create a new project for a user.
      *
-     * @param int $userId
+     * @param string $userId - UUID string value
      * @param array $data
      * @return Project
      */
-    public function createUserProject(int $userId, array $data): Project
+    public function createUserProject(string $userId, array $data): Project
     {
         return $this->projectRepository->createUserProject($userId, $data);
     }
@@ -61,11 +61,11 @@ class ProjectService
      * Update the specified project.
      *
      * @param Project $project
-     * @param int $userId
+     * @param string $userId - UUID string value
      * @param array $data
      * @return Project
      */
-    public function updateProject(Project $project, int $userId, array $data): Project
+    public function updateProject(Project $project, string $userId, array $data): Project
     {
         if ($project->user_id !== $userId) {
             abort(403, "You are not allowed to update this project");
@@ -79,10 +79,10 @@ class ProjectService
      * Delete the specified project.
      *
      * @param Project $project
-     * @param int $userId
+     * @param string $userId - UUID string value
      * @return bool|null
      */
-    public function deleteProject(Project $project, int $userId): ?bool
+    public function deleteProject(Project $project, string $userId): ?bool
     {
         if ($project->user_id !== $userId) {
             abort(403, "You are not allowed to delete this project");

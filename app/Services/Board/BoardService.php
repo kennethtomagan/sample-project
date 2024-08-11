@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Ticket\Board;
+namespace App\Services\Board;
 
 use App\Models\Board;
-use App\Repositories\User\Ticket\Project\Board\BoardRepository;
+use App\Repositories\Board\BoardRepository;
 
 class BoardService
 {
@@ -50,10 +50,10 @@ class BoardService
      * Delete the specified board.
      *
      * @param Board $board
-     * @param int $userId
+     * @param string $userId - UUID string value
      * @return bool|null
      */
-    public function deleteBoard(Board $board, int $userId): ?bool
+    public function deleteBoard(Board $board, string $userId): ?bool
     {
         $board = $this->boardRepository->loadRelations($board, ['project']);
         if ($board->project->user_id !== $userId) {

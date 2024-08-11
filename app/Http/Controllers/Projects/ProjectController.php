@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Project\ProjectCreateRequest;
 use App\Http\Resources\Project\ProjectResource;
 use App\Models\Project;
-use App\Services\Ticket\Project\ProjectService;
+use App\Services\Project\ProjectService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
