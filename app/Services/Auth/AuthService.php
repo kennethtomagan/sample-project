@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
@@ -32,6 +33,12 @@ class AuthService
      */
     public function registerUser(array $data): User
     {
+        $data = [
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ];
+
         $user = $this->userRepository->create($data);
 
         event(new Registered($user));

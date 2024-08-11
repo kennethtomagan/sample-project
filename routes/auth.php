@@ -13,7 +13,6 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
     ->name('register');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-    ->middleware('guest')
     ->name('login');
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
@@ -30,3 +29,6 @@ Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
     ->name('verification.verify');
 
 
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');

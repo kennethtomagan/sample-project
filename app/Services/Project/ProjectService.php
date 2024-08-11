@@ -43,7 +43,12 @@ class ProjectService
      */
     public function createUserProject(string $userId, array $data): Project
     {
-        return $this->projectRepository->createUserProject($userId, $data);
+        $values = [
+            ...$data,
+            'user_id' => $userId,
+        ];
+
+        return $this->projectRepository->create($values);
     }
 
     /**
@@ -71,7 +76,7 @@ class ProjectService
             abort(403, "You are not allowed to update this project");
         }
 
-        $this->projectRepository->updateProject($project, $data);
+        $this->projectRepository->update($project, $data);
         return $project;
     }
 
@@ -88,6 +93,6 @@ class ProjectService
             abort(403, "You are not allowed to delete this project");
         }
 
-        return $this->projectRepository->deleteProject($project);
+        return $this->projectRepository->delete($project);
     }
 }

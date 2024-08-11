@@ -3,19 +3,21 @@
 namespace App\Repositories\Ticket;
 
 use App\Models\Ticket;
+use App\Repositories\BaseRepository;
+use App\Repositories\Ticket\TicketRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class TicketRepository
+class TicketRepository extends BaseRepository implements TicketRepositoryInterface
 {
+
     /**
-     * Create a new ticket.
-     *
-     * @param array $data
-     * @return Ticket
+     * TicketRepository constructor.
+     * @param Ticket $ticket
      */
-    public function create(array $data): Ticket
+    public function __construct(Ticket $ticket)
     {
-        return Ticket::create($data);
+        parent::__construct($ticket);
+        $this->model = $ticket;
     }
 
     /**
@@ -27,29 +29,6 @@ class TicketRepository
     public function findWithRelations(string $ticketId): ?Ticket
     {
         return Ticket::with('creator', 'members')->find($ticketId);
-    }
-
-    /**
-     * Update a ticket.
-     *
-     * @param Ticket $ticket
-     * @param array $data
-     * @return bool
-     */
-    public function update(Ticket $ticket, array $data): bool
-    {
-        return $ticket->update($data);
-    }
-
-    /**
-     * Delete a ticket.
-     *
-     * @param Ticket $ticket
-     * @return bool|null
-     */
-    public function delete(Ticket $ticket): ?bool
-    {
-        return $ticket->delete();
     }
 
     /**
@@ -99,7 +78,7 @@ class TicketRepository
      * Update ticket's board and rank.
      *
      * @param Ticket $ticket
-     * @param string|null boardId - UUID string value
+     * @param string|null $boardId - UUID string value
      * @param int $rank
      * @return Ticket
      */

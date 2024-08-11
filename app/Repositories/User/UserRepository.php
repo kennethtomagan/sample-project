@@ -3,22 +3,19 @@
 namespace App\Repositories\User;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Repositories\BaseRepository;
+use App\Repositories\User\UserRepositoryInterface;
 
-class UserRepository
+class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
+
     /**
-     * Create a new user.
-     *
-     * @param array $data
-     * @return User
+     * UserRepository constructor.
+     * @param User $user
      */
-    public function create(array $data): User
+    public function __construct(User $user)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        parent::__construct($user);
+        $this->model = $user;
     }
 }

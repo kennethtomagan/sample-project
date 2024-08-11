@@ -3,41 +3,20 @@
 namespace App\Repositories\Board;
 
 use App\Models\Board;
+use App\Repositories\BaseRepository;
+use App\Repositories\Board\BoardRepositoryInterface;
 
-class BoardRepository
+class BoardRepository extends BaseRepository implements BoardRepositoryInterface
 {
-    /**
-     * Create a new board.
-     *
-     * @param array $data
-     * @return Board
-     */
-    public function create(array $data): Board
-    {
-        return Board::create($data);
-    }
 
     /**
-     * Update the specified board.
-     *
+     * BoardRepository constructor.
      * @param Board $board
-     * @param array $data
-     * @return bool
      */
-    public function update(Board $board, array $data): bool
+    public function __construct(Board $board)
     {
-        return $board->update($data);
-    }
-
-    /**
-     * Delete the specified board.
-     *
-     * @param Board $board
-     * @return bool|null
-     */
-    public function delete(Board $board): ?bool
-    {
-        return $board->delete();
+        parent::__construct($board);
+        $this->model = $board;
     }
 
     /**

@@ -3,10 +3,23 @@
 namespace App\Repositories\Project;
 
 use App\Models\Project;
+use App\Repositories\BaseRepository;
+use App\Repositories\Project\ProjectRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class ProjectRepository
+class ProjectRepository extends BaseRepository implements ProjectRepositoryInterface
 {
+
+    /**
+     * ProjectRepository constructor.
+     * @param Project $project
+     */
+    public function __construct(Project $project)
+    {
+        parent::__construct($project);
+        $this->model = $project;
+    }
+
     /**
      * Get all projects for a user.
      *
@@ -19,18 +32,6 @@ class ProjectRepository
     }
 
     /**
-     * Create a new project for a user.
-     *
-     * @param string $userId - UUID string value
-     * @param array $data
-     * @return Project
-     */
-    public function createUserProject(string $userId, array $data): Project
-    {
-        return Project::create(array_merge($data, ['user_id' => $userId]));
-    }
-
-    /**
      * Get a specific project with its related boards and tickets.
      *
      * @param Project $project
@@ -39,28 +40,5 @@ class ProjectRepository
     public function getProjectWithRelations(Project $project): Project
     {
         return $project->load(['boards', 'boards.tickets']);
-    }
-
-    /**
-     * Update the specified project.
-     *
-     * @param Project $project
-     * @param array $data
-     * @return bool
-     */
-    public function updateProject(Project $project, array $data): bool
-    {
-        return $project->update($data);
-    }
-
-    /**
-     * Delete the specified project.
-     *
-     * @param Project $project
-     * @return bool|null
-     */
-    public function deleteProject(Project $project): ?bool
-    {
-        return $project->delete();
     }
 }
